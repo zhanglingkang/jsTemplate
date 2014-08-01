@@ -61,7 +61,19 @@ var global = (function () {
          * @type {String}
          */
         var evalCodePiece;
+        /**
+         * 保存data的键值。
+         * @type {String}
+         */
+        var key;
 
+        for (key in data) {
+            //将data的keys作为变量定义在eval函数内。
+            if (data.hasOwnProperty(key)) {
+                evalCodePiece = "var key=data.key;".replace(/key/g, key);
+                evalCode += evalCodePiece;
+            }
+        }
         while (true) {
             matchResult = CODE_REG.exec(tpl);
             if (matchResult == null) {
@@ -70,19 +82,21 @@ var global = (function () {
                 evalCode += evalCodePiece;
                 break;
             } else {
-                matchPart = tpl.substring(matchResult.index, codeReg.lastIndex);
+                matchPart = tpl.substring(matchResult.index, CODE_REG.lastIndex);
                 evalCodePiece = "view.push(tpl.substring(lastPos, matchResult.index));".replace("lastPos", lastPos);
                 evalCodePiece = evalCodePiece.replace("matchResult.index", matchResult.index);
                 evalCode += evalCodePiece;
-                lastPos = codeReg.lastIndex;
+                lastPos = CODE_REG.lastIndex;
                 if (expressionMatchResult = matchPart.match(EXPRESSION_REG)) {
-                    evalCode += "view.push(data.{prop});".replace("{prop}", expressionMatchResult[1]);
+                    evalCode += "view.push({prop});".replace("{prop}", expressionMatchResult[1]);
                 } else {
                     evalCode += matchPart.substring(2, matchPart.length - 2);
                 }
             }
         }
-        eval(evalCode);
+        (function () {
+            eval(evalCode);//这里为作用域链多添加一层是为了防止在非严格模式下evalCode代码干扰template函数内的变量。
+        }());
         return view.join("");
     }
 }());
