@@ -1,0 +1,164 @@
+{
+    "project": {
+        "name": "Documenting JavaScript with YUIDoc",
+        "version": "0.0.1"
+    },
+    "files": {
+        "src\\template-engine.js": {
+            "name": "src\\template-engine.js",
+            "modules": {},
+            "classes": {
+                "ky": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "test\\test01.js": {
+            "name": "test\\test01.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "ky": {
+            "name": "ky",
+            "shortname": "ky",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\template-engine.js",
+            "line": 6,
+            "description": "为了使用yuidoc生成文档。这里才声明成了class。"
+        }
+    },
+    "classitems": [
+        {
+            "file": "src\\template-engine.js",
+            "line": 17,
+            "itemtype": "method",
+            "name": "template",
+            "params": [
+                {
+                    "name": "tpl",
+                    "description": "模板代码",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "填充至模板中的数据",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "模板与数据结合后最终生成的代码",
+                "type": "String"
+            },
+            "class": "ky"
+        },
+        {
+            "file": "src\\template-engine.js",
+            "line": 24,
+            "description": "CODE_REG在tpl中的某一匹配结果",
+            "type": "{Array}",
+            "class": "ky"
+        },
+        {
+            "file": "src\\template-engine.js",
+            "line": 29,
+            "description": "CODE_REG在tpl中的某一匹配部分",
+            "type": "{String}",
+            "class": "ky"
+        },
+        {
+            "file": "src\\template-engine.js",
+            "line": 34,
+            "description": "view.join(\"\")为模板与数据结合后渲染成的视图",
+            "type": "{Array}",
+            "class": "ky"
+        },
+        {
+            "file": "src\\template-engine.js",
+            "line": 39,
+            "description": "模板lastPos之前的代码已被解析。",
+            "type": "{number}",
+            "class": "ky"
+        },
+        {
+            "file": "src\\template-engine.js",
+            "line": 44,
+            "description": "模板的长度",
+            "type": "{Number}",
+            "class": "ky"
+        },
+        {
+            "file": "src\\template-engine.js",
+            "line": 49,
+            "description": "放入eval中执行的代码。",
+            "type": "{string}",
+            "class": "ky"
+        },
+        {
+            "file": "src\\template-engine.js",
+            "line": 54,
+            "description": "EXPRESSION_REG在tpl中的某一匹配部分",
+            "type": "{Array}",
+            "class": "ky"
+        },
+        {
+            "file": "src\\template-engine.js",
+            "line": 59,
+            "description": "放入eval中的执行的代码片段。",
+            "type": "{String}",
+            "class": "ky"
+        },
+        {
+            "file": "test\\test01.js",
+            "line": 1,
+            "description": "Created by zhanglingkang on 2014/7/30.",
+            "class": ""
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nCODE_REG在tpl中的某一匹配结果",
+            "line": " src\\template-engine.js:24"
+        },
+        {
+            "message": "Missing item type\nCODE_REG在tpl中的某一匹配部分",
+            "line": " src\\template-engine.js:29"
+        },
+        {
+            "message": "Missing item type\nview.join(\"\")为模板与数据结合后渲染成的视图",
+            "line": " src\\template-engine.js:34"
+        },
+        {
+            "message": "Missing item type\n模板lastPos之前的代码已被解析。",
+            "line": " src\\template-engine.js:39"
+        },
+        {
+            "message": "Missing item type\n模板的长度",
+            "line": " src\\template-engine.js:44"
+        },
+        {
+            "message": "Missing item type\n放入eval中执行的代码。",
+            "line": " src\\template-engine.js:49"
+        },
+        {
+            "message": "Missing item type\nEXPRESSION_REG在tpl中的某一匹配部分",
+            "line": " src\\template-engine.js:54"
+        },
+        {
+            "message": "Missing item type\n放入eval中的执行的代码片段。",
+            "line": " src\\template-engine.js:59"
+        },
+        {
+            "message": "Missing item type\nCreated by zhanglingkang on 2014/7/30.",
+            "line": " test\\test01.js:1"
+        }
+    ]
+}

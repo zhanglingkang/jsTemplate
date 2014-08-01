@@ -1,0 +1,10 @@
+{
+    "name": "Documenting JavaScript with YUIDoc",
+    "version": "0.0.1",
+    "options": {
+        "linkNatives": true,
+        "outdir": "./docs",
+        "paths": "./src",
+        "exclude": ""
+    }
+}
