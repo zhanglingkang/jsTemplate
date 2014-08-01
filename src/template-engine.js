@@ -70,11 +70,11 @@ var global = (function () {
                 evalCode += evalCodePiece;
                 break;
             } else {
-                matchPart = tpl.substring(matchResult.index, codeReg.lastIndex);
+                matchPart = tpl.substring(matchResult.index, CODE_REG.lastIndex);
                 evalCodePiece = "view.push(tpl.substring(lastPos, matchResult.index));".replace("lastPos", lastPos);
                 evalCodePiece = evalCodePiece.replace("matchResult.index", matchResult.index);
                 evalCode += evalCodePiece;
-                lastPos = codeReg.lastIndex;
+                lastPos = CODE_REG.lastIndex;
                 if (expressionMatchResult = matchPart.match(EXPRESSION_REG)) {
                     evalCode += "view.push(data.{prop});".replace("{prop}", expressionMatchResult[1]);
                 } else {
