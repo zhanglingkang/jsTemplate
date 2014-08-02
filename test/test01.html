@@ -3,25 +3,30 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script type="text/template" id="hello-tpl">
-        <div>
-            <% if(true){%>
-            Hei, my name is <%=name%>, and I'm <%=age%> years old.;
-            <% } %>
-            <% for(var i=0;i<persons.length;++i){%>
-            <li>
-                <label>name:</label><%=persons[i].name%>
-            </li>
-            <%}%>
-        </div>
-    </script>
+    <link rel="stylesheet" media="all" href="../../../vendor/test/mocha.css">
+    <script src="lib/mocha.js"></script>
+    <script src="lib/chai.js"></script>
+    <script src="lib/sinon.js"></script>
+    <script src="../src/template-engine.js"></script>
 
 </head>
 <body>
-<div id="container">
+<div id="mocha">
 
 </div>
-<script src="../src/template-engine.js"></script>
+<script type="text/template" id="if-true">
+    <% if(true){%>
+    if-true
+    <% } %>
+</script>
+<script type="text/template" id="if-false">
+    <% if(false){%>
+    if-true
+    <% } else{%>
+    if-false
+    <%}%>
+</script>
 <script src="test01.js"></script>
+
 </body>
 </html>
