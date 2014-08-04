@@ -23,13 +23,38 @@
                 view.should.contain("5");
                 view.should.contain("9");
             });
-            it("表达式内函数测试", function () {
+            it("表达式内调用函数时，输出函数的返回结果", function () {
                 var tpl = document.querySelector("#exp-fn").text,
                     view = ky.template(tpl, {
                         fn: function () {
                             return "123";
                         }}).trim();
                 view.should.eql("123");
+            });
+            it("访问未定义变量时，应自动输出为空", function () {
+                var tpl = document.querySelector("#var-undefined").text,
+                    view = ky.template(tpl).trim();
+                view.should.eql("");
+            });
+            it("表达式值为undefined时，应自动输出为空", function () {
+                var tpl = document.querySelector("#value-undefined").text,
+                    view = ky.template(tpl).trim();
+                view.should.eql("");
+            });
+            it("表达式值为null时，应自动输出为空", function () {
+                var tpl = document.querySelector("#value-null").text,
+                    view = ky.template(tpl).trim();
+                view.should.eql("");
+            });
+            it("表达式值为false时，应输出为false", function () {
+                var tpl = document.querySelector("#value-false").text,
+                    view = ky.template(tpl).trim();
+                view.should.eql("false");
+            });
+            it("表达式值为0时，应输出为0", function () {
+                var tpl = document.querySelector("#value-0").text,
+                    view = ky.template(tpl).trim();
+                view.should.eql("0");
             });
         });
     });
