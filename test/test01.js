@@ -56,6 +56,16 @@
                     view = ky.template(tpl).trim();
                 view.should.eql("0");
             });
+            it("表达式为2+3时，应输出5", function () {
+                var tpl = document.querySelector("#value-add").text,
+                    view = ky.template(tpl).trim();
+                view.should.eql("5");
+            });
+            it("表达式为6/2时，应输出3", function () {
+                var tpl = document.querySelector("#value-devision").text,
+                    view = ky.template(tpl).trim();
+                view.should.eql("3");
+            });
         });
     });
     mocha.run();
