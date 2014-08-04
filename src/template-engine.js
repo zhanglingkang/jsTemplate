@@ -88,7 +88,7 @@ var global = (function () {
                 evalCode += evalCodePiece;
                 lastPos = CODE_REG.lastIndex;
                 if (expressionMatchResult = matchPart.match(EXPRESSION_REG)) {
-                    evalCode += "view.push({prop});".replace("{prop}", expressionMatchResult[1]);
+                    evalCode += "view.push({expression});".replace("{expression}", expressionMatchResult[1]);
                 } else {
                     evalCode += matchPart.substring(2, matchPart.length - 2);
                 }
