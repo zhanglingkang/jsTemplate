@@ -91,27 +91,64 @@
  */
 &quot;use strict&quot;;
 (function () {
-    var tpl = document.querySelector(&quot;#hello-tpl&quot;),
-        container = document.querySelector(&quot;#container&quot;),
-        data = {
-            name: &quot;zlk&quot;,
-            age: 23,
-            persons: [
-                {
-                    name: &quot;zlk&quot;
-                },
-                {
-                    name: &quot;zhuqian&quot;
-                },
-                {
-                    name: &quot;liuhcao&quot;
-                }
-            ]
-        },
-        view = ky.template(tpl.text, data);
-    container.innerHTML = view;
+    mocha.setup(&#x27;bdd&#x27;);
+    chai.Should();
 
-})();
+    describe(&quot;ky&quot;, function () {
+        describe(&quot;template&quot;, function () {
+            it(&quot;if条件为true的时候，输出if语句块的内容&quot;, function () {
+                var tpl = document.querySelector(&quot;#if-true&quot;).text;
+                ky.template(tpl, null).trim().should.eql(&quot;if-true&quot;);
+            });
+            it(&quot;if条件为false的时候，输出else语句块的内容&quot;, function () {
+                var tpl = document.querySelector(&quot;#if-false&quot;).text;
+                ky.template(tpl, null).trim().should.eql(&quot;if-false&quot;);
+            });
+            it(&quot;for循环测试&quot;, function () {
+                var tpl = document.querySelector(&quot;#for&quot;).text,
+                    view = ky.template(tpl, null).trim();
+                view.should.contain(&quot;0&quot;);
+                view.should.contain(&quot;5&quot;);
+                view.should.contain(&quot;9&quot;);
+            });
+            it(&quot;表达式内调用函数时，输出函数的返回结果&quot;, function () {
+                var tpl = document.querySelector(&quot;#exp-fn&quot;).text,
+                    view = ky.template(tpl, {
+                        fn: function () {
+                            return &quot;123&quot;;
+                        }}).trim();
+                view.should.eql(&quot;123&quot;);
+            });
+            it(&quot;访问未定义变量时，应自动输出为空&quot;, function () {
+                var tpl = document.querySelector(&quot;#var-undefined&quot;).text,
+                    view = ky.template(tpl).trim();
+                view.should.eql(&quot;&quot;);
+            });
+            it(&quot;表达式值为undefined时，应自动输出为空&quot;, function () {
+                var tpl = document.querySelector(&quot;#value-undefined&quot;).text,
+                    view = ky.template(tpl).trim();
+                view.should.eql(&quot;&quot;);
+            });
+            it(&quot;表达式值为null时，应自动输出为空&quot;, function () {
+                var tpl = document.querySelector(&quot;#value-null&quot;).text,
+                    view = ky.template(tpl).trim();
+                view.should.eql(&quot;&quot;);
+            });
+            it(&quot;表达式值为false时，应输出为false&quot;, function () {
+                var tpl = document.querySelector(&quot;#value-false&quot;).text,
+                    view = ky.template(tpl).trim();
+                view.should.eql(&quot;false&quot;);
+            });
+            it(&quot;表达式值为0时，应输出为0&quot;, function () {
+                var tpl = document.querySelector(&quot;#value-0&quot;).text,
+                    view = ky.template(tpl).trim();
+                view.should.eql(&quot;0&quot;);
+            });
+        });
+    });
+    mocha.run();
+}());
+
     </pre>
 </div>
 

@@ -106,9 +106,23 @@ var global = (function () {
      * @method template
      * @param tpl {String} 模板代码
      * @param data {Object} 填充至模板中的数据
-     * @return {String} 模板与数据结合后最终生成的代码
+     * @return {String} 模板与数据结合后最终生成的视图
      */
     ky.template = function (tpl, data) {
+        return ky.templateFn(tpl)(data);
+    };
+    /**
+     * @method templateFn 有些场景下，一份模板可能需要渲染多个视图，调用此函数，可以将解析后的模板缓存起来，防止重复解析。
+     * @param tpl {String} 模板代码
+     * @return {Function} 模板解析后的函数，需要一个参数模型数据 data {Object}，返回值为渲染后的视图
+     * @example
+     *   var tpl=&quot;&lt;%=name%&gt; say:hello!&quot;;
+     *
+     *   var fn=ky.templateFn(tpl);
+     *
+     *   fn({name:&quot;zlk&quot;});//结果zlk say:hello!
+     */
+    ky.templateFn = function (tpl) {
         /**
          * CODE_REG在tpl中的某一匹配结果
          * @type {Array}
@@ -119,11 +133,6 @@ var global = (function () {
          * @type {String}
          */
         var matchPart;
-        /**
-         * view.join(&quot;&quot;)为模板与数据结合后渲染成的视图
-         * @type {Array}
-         */
-        var view = [];
         /**
          * 模板lastPos之前的代码已被解析。
          * @type {number}
@@ -153,26 +162,64 @@ var global = (function () {
         while (true) {
             matchResult = CODE_REG.exec(tpl);
             if (matchResult == null) {
-                evalCodePiece = &quot;view.push(tpl.substring(lastPos, length));&quot;.replace(&quot;lastPos&quot;, lastPos);
-                evalCodePiece = evalCodePiece.replace(&quot;length&quot;, length);
+                evalCodePiece = &quot;view.push(&#x27;{content}&#x27;);&quot;.replace(&quot;{content}&quot;, tpl.substring(lastPos, length).replace(/\n/g, &quot;&quot;));
                 evalCode += evalCodePiece;
                 break;
             } else {
-                matchPart = tpl.substring(matchResult.index, codeReg.lastIndex);
-                evalCodePiece = &quot;view.push(tpl.substring(lastPos, matchResult.index));&quot;.replace(&quot;lastPos&quot;, lastPos);
-                evalCodePiece = evalCodePiece.replace(&quot;matchResult.index&quot;, matchResult.index);
+                matchPart = tpl.substring(matchResult.index, CODE_REG.lastIndex);
+                evalCodePiece = &quot;view.push(&#x27;{content}&#x27;);&quot;.replace(&quot;{content}&quot;, tpl.substring(lastPos, matchResult.index).replace(/\n/g, &quot;&quot;));
                 evalCode += evalCodePiece;
-                lastPos = codeReg.lastIndex;
+                lastPos = CODE_REG.lastIndex;
                 if (expressionMatchResult = matchPart.match(EXPRESSION_REG)) {
-                    evalCode += &quot;view.push(data.{prop});&quot;.replace(&quot;{prop}&quot;, expressionMatchResult[1]);
+                    evalCodePiece = [
+                        &quot;var value;&quot;,
+                        &quot;try{ &quot;,
+                        &quot;value={expression};&quot;,
+                        &quot;}catch(e){&quot;,
+                        &quot;if(!(e instanceof ReferenceError)){&quot;,//屏蔽掉引用类型错误，访问未定义变量时，输出空。
+                        &quot;throw e;&quot;,
+                        &quot;}&quot;,
+                        &quot;}finally{&quot;,
+                        &quot;if(value===undefined||value===null){value=&#x27;&#x27;;}&quot;,
+                        &quot;view.push(value);&quot;,
+                        &quot;}&quot;
+                    ].join(&quot;&quot;).replace(/\{expression\}/g, expressionMatchResult[1]);
+                    evalCode += evalCodePiece;
                 } else {
                     evalCode += matchPart.substring(2, matchPart.length - 2);
                 }
             }
         }
-        eval(evalCode);
-        return view.join(&quot;&quot;);
-    }
+        console.log(evalCode);
+        return function (data) {
+            /**
+             * view.join(&quot;&quot;)为模板与数据结合后渲染成的视图
+             * @type {Array}
+             */
+            var view = [];
+            /**
+             * 保存data的键值。
+             * @type {String}
+             */
+            var key;
+            /**
+             * 增加parsedCode变量是为了保持evalCode不随着此函数的调用改变
+             * @type {String}
+             */
+            var parsedCode = evalCode;
+            data = data || {};
+            for (key in data) {
+                //将data的keys作为变量定义在eval函数内。
+                if (data.hasOwnProperty(key)) {
+                    parsedCode = &quot;var key=data.key;&quot;.replace(/key/g, key) + parsedCode;
+                }
+            }
+            (function () {
+                eval(parsedCode);//这里将eval放入立即函数内是为了防止在非严格模式下eval内代码干扰调用者函数内的变量。
+            }());
+            return view.join(&quot;&quot;);
+        };
+    };
 }());
 
     </pre>
