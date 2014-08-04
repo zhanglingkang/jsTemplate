@@ -72,9 +72,10 @@ var global = (function () {
         var evalCodePiece;
 
         /**
-         *
+         * 模板解析后的函数的函数体。
+         * @tpye {String}
          */
-        var defineVarCode="";
+        var fnBody;
 
         while (true) {
             matchResult = CODE_REG.exec(tpl);
@@ -107,38 +108,19 @@ var global = (function () {
                 }
             }
         }
-        return function (data) {
-            /**
-             * view.join("")为模板与数据结合后渲染成的视图
-             * @type {Array}
-             */
-            var view = [];
-            /**
-             * 保存data的键值。
-             * @type {String}
-             */
-            var key;
-            /**
-             * 增加parsedCode变量是为了保持evalCode不随着此函数的调用改变
-             * @type {String}
-             */
-            var parsedCode = evalCode;
-            data = data || {};
-            for (key in data) {
-                //将data的keys作为变量定义在eval函数内。
-                if (data.hasOwnProperty(key)) {
-                    parsedCode = "var key=data.key;".replace(/key/g, key) + parsedCode;
-                }
-            }
-            (function () {
-                eval(parsedCode);//这里将eval放入立即函数内是为了防止在非严格模式下eval内代码干扰调用者函数内的变量。
-            }());
-            return view.join("");
-        };
-        defineVarCode
-        for(key in data){
-            code+="var key=data[key]".replace(/key/g,key);
-        }
-        return new Function("data", "var view=[],_defineVarCode=''_key;for(key in data){_defineVarCode+='var key=data[key];'.replace(/key/g,key)}")
+
+        fnBody = [
+            "var view=[],",
+            "_defineVarCode='',",
+            "_key;",
+            "for(_key in data){",
+            "_defineVarCode+='var key=data[\"key\"];'.replace(/key/g,_key);",
+            "}",
+            "eval(_defineVarCode);",
+            evalCode,
+            "return view.join('');"
+        ].join("");
+        console.log(fnBody);
+        return new Function("data", fnBody);
     };
 }());
