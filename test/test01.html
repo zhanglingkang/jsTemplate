@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" media="all" href="../../../vendor/test/mocha.css">
+    <link rel="stylesheet" media="all" href="lib/mocha.css">
     <script src="lib/mocha.js"></script>
     <script src="lib/chai.js"></script>
     <script src="lib/sinon.js"></script>
@@ -25,6 +25,14 @@
     <% } else{%>
     if-false
     <%}%>
+</script>
+<script type="text/template" id="for">
+    <% for(var i=0;i<10;++i){%>
+    <%=i%>
+    <% } %>
+</script>
+<script type="text/template" id="exp-fn">
+    <%=fn()%>
 </script>
 <script src="test01.js"></script>
 
