@@ -71,6 +71,11 @@ var global = (function () {
          */
         var evalCodePiece;
 
+        /**
+         *
+         */
+        var defineVarCode="";
+
         while (true) {
             matchResult = CODE_REG.exec(tpl);
             if (matchResult == null) {
@@ -102,7 +107,6 @@ var global = (function () {
                 }
             }
         }
-        console.log(evalCode);
         return function (data) {
             /**
              * view.join("")为模板与数据结合后渲染成的视图
@@ -131,5 +135,10 @@ var global = (function () {
             }());
             return view.join("");
         };
+        defineVarCode
+        for(key in data){
+            code+="var key=data[key]".replace(/key/g,key);
+        }
+        return new Function("data", "var view=[],_defineVarCode=''_key;for(key in data){_defineVarCode+='var key=data[key];'.replace(/key/g,key)}")
     };
 }());
