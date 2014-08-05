@@ -7,17 +7,25 @@
     <body>
         <div id="wrap"></div>
         <script type="text/html" id="info">
+        <%for(var i = 0; i < person.length; i++ ) {%>
         <dl>
-            <dt><%=name%></dt>
-            <dd><%=age%></dd>
+            <dt><%=person[i].name%></dt>
+            <dd><%=person[i].age%></dd>
         </dl>
+        <%}%>
         </script>
         <script src="../src/template-engine.js"></script>
         <script>
             var wrap = document.getElementById('wrap'),
                 tpl = document.getElementById('info');
 
-            var data = [{"name": "ZF", "age" : 22}, {"name": "ZLK", "age" : 24}, {"name": "ZYR", "age" : 39}];
+            var data = {
+                person : [
+                    {"name": "ZF", "age" : 22},
+                    {"name": "ZLK", "age" : 24},
+                    {"name": "ZYR", "age" : 39}
+                ]
+            };
 
             var html = ky.template(tpl.innerHTML, data);
 

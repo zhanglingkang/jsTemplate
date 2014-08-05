@@ -147,13 +147,11 @@ var global = (function () {
             "var view=[],",
                 "_defineVarCode='',",
                 "_key;",
-            "data.forEach(function(data, index) {",
-                "for(_key in data) {",
-                    "_defineVarCode+='var '+_key+'=data[\"'+_key+'\"];';",
-                "}",
-                "eval(_defineVarCode);",
-                evalCode,
-            "});",
+            "for(_key in data) {",
+                "_defineVarCode+='var key=data[\"key\"];'.replace(/key/g,_key);",
+            "}",
+            "eval(_defineVarCode);",
+            evalCode,
             "return view.join('');"
         ].join("");
 
