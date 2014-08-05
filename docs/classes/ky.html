@@ -137,6 +137,13 @@
                                 
                             </li>
                         
+                            <li class="index-item method">
+                                <a href="#method_templateFn 有些场景下，一份模板可能需要渲染多个视图，调用此函数，可以将解析后的模板缓存起来，防止重复解析。">templateFn 有些场景下，一份模板可能需要渲染多个视图，调用此函数，可以将解析后的模板缓存起来，防止重复解析。</a>
+
+                                
+                                
+                            </li>
+                        
                     </ul>
                 </div>
             
@@ -270,13 +277,130 @@
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
                     
-                    <p>模板与数据结合后最终生成的代码</p>
+                    <p>模板与数据结合后最终生成的视图</p>
 
                 
             </div>
         </div>
     
 
+    
+</div>
+
+                
+                    <div id="method_templateFn 有些场景下，一份模板可能需要渲染多个视图，调用此函数，可以将解析后的模板缓存起来，防止重复解析。" class="method item">
+    <h3 class="name"><code>templateFn 有些场景下，一份模板可能需要渲染多个视图，调用此函数，可以将解析后的模板缓存起来，防止重复解析。</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>tpl</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_template-engine.js.html#l26"><code>src\template-engine.js:26</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">tpl</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>模板代码</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>:
+                    
+                    <p>模板解析后的函数，需要一个参数模型数据 data {Object}，返回值为渲染后的视图</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>  var tpl=&quot;&lt;%=name%&gt; say:hello!&quot;;</p>
+<p>  var fn=ky.templateFn(tpl);</p>
+<p>  fn({name:&quot;zlk&quot;});//结果zlk say:hello!</p>
+
+            </div>
+        </div>
     
 </div>
 
