@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>一般用法</title>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        <script type="text/html" id="info">
+        <%for(var i = 0; i < person.length; i++ ) {%>
+        <dl>
+            <dt><%=person[i].name%></dt>
+            <dd><%=person[i].age%></dd>
+        </dl>
+        <%}%>
+        </script>
+        <script src="../src/template-engine.js"></script>
+        <script>
+            var wrap = document.getElementById('wrap'),
+                tpl = document.getElementById('info');
+
+            var data = {
+                person : [
+                    {"name": "ZF", "age" : 22},
+                    {"name": "ZLK", "age" : 24},
+                    {"name": "ZYR", "age" : 39}
+                ]
+            };
+
+            var html = ky.template(tpl.innerHTML, data);
+
+            wrap.innerHTML = html;
+        </script>
+    </body>
+</html>
