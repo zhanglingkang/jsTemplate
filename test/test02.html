@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../src/template-engine.js"></script>
+
+</head>
+<body>
+<div id="mocha">
+
+</div>
+<script type="text/template" id="if-true">
+    <% if(true){%>
+    if-true
+    <% } %>
+</script>
+<script type="text/template" id="if-false">
+    <% if(false){%>
+    if-true
+    <% } else{%>
+    if-false
+    <%}%>
+</script>
+<script type="text/template" id="for">
+    <% for(var i=0;i<10;++i){%>
+    <%=i%>
+    <% } %>
+</script>
+<script type="text/template" id="exp-fn">
+    <%=fn()%>
+</script>
+<script type="text/template" id="var-undefined">
+    <%=ffffffff%>
+</script>
+<script type="text/template" id="value-undefined">
+    <%=undefined%>
+</script>
+<script type="text/template" id="value-null">
+    <%=null%>
+</script>
+<script type="text/template" id="value-false">
+    <%=false%>
+</script>
+<script type="text/template" id="value-0">
+    <%=0%>
+</script>
+<script src="test02.js"></script>
+
+</body>
+</html>
