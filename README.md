@@ -1,4 +1,4 @@
-#jsTemplate 
+# jsTemplate 
 
 一个js模板引擎。
 * [api文档](./docs)。内容在文件夹`docs`中,使用 yuidoc 生成，打开 index.html 即可查看。
